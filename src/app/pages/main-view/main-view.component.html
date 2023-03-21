@@ -1,0 +1,61 @@
+<div class="root">
+  <div class="navbar has-background-dark">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <h1 class="app-name has-gradient-text">KANBAN</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="board">
+
+    <div class="board-bar">
+      <p class="board-name">{{ board.name }} <button class="add-ticket-btn" onclick="openModal()">  <b>+</b> </button></p>
+
+    </div>
+
+    <div class="board-wrapper">
+
+      <div class="board-columns" cdkDropListGroup>
+
+        <div class="board-column" *ngFor="let column of board.columns">
+
+          <div class="column-title">
+            {{ column.name }}
+          </div>
+
+          <div class="tasks-container"
+               cdkDropList
+               [cdkDropListData]="column.tasks"
+               (cdkDropListDropped)="drop($event)">
+            <div class="task" *ngFor="let item of column.tasks" cdkDrag>
+
+              <button class="archive-btn" (click)="archiveTicket(item)">-</button>
+              <div class="task-title">{{ item.title }}</div>
+              <div class="task-description">{{ item.description }}</div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="myModal" class="modal">
+
+  <div class="modal-content" style="top: 0; bottom: 0; left: 0; right: 0; margin: auto;">
+    <form (submit)="createTicket(ticketTitle.value, ticketDescription.value, 'User', 'backlog')">
+      <label for="ticketTitle" style="font-weight: bold;">Titel: </label>
+      <input type="text" name="ticketTitle" id="ticketTitle" #ticketTitle required style="padding: 5px; border-radius: 5px; border: 1px solid grey;"><br /><br />
+
+      <label for="ticketDescription" style="font-weight: bold;">Beschreibung: </label>
+      <textarea name="ticketDescription" id="ticketDescription" #ticketDescription required style="padding: 5px; border-radius: 5px; border: 1px solid grey;"></textarea><br /><br />
+
+      <button type="submit" style="padding: 10px; border-radius: 5px; background-color: blue; color: white; font-weight: bold; border: none;">Ticket Beispiel erstellen</button>
+    </form>
+  </div>
+
+</div>
+
