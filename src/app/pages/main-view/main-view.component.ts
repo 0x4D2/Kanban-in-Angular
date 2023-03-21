@@ -74,7 +74,7 @@ export class MainViewComponent {
       updatedDate: new Date(),
       isArchived: false,
       statusID: 0, //Für späteren prozess 
-      priority: 100, //Dirty hier soll die maximxal pos +1 ein
+      priority: this.tickets.length + 1, //default piroty nach den erstellen
       status: ticketStatus
     };
 
